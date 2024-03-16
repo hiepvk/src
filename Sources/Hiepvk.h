@@ -42,15 +42,6 @@
 #define YT_BUNDLE_ID @"com.google.ios.youtube"
 #define YT_NAME @"YouTube"
 
-@interface YTSingleVideoController ()
-- (float)playbackRate;
-- (void)setPlaybackRate:(float)arg1;
-@end
-
-@interface YTPlayerViewController ()
-- (YTSingleVideoController *)activeVideo;
-@end
-
 // IAmYouTube
 @interface SSOConfiguration : NSObject
 @end
