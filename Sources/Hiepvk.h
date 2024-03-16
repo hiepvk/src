@@ -59,10 +59,6 @@
 - (float)progress;
 @end
 
-@interface YTPlaylistHeaderViewController: UIViewController
-@property UIButton *downloadsButton;
-@end
-
 @interface YTISlimMetadataButtonSupportedRenderers : NSObject
 - (id)slimButton_buttonRenderer;
 - (id)slimMetadataButtonRenderer;
