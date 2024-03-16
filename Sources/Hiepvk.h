@@ -46,11 +46,6 @@
 @interface SSOConfiguration : NSObject
 @end
 
-@interface YTISlimMetadataButtonSupportedRenderers : NSObject
-- (id)slimButton_buttonRenderer;
-- (id)slimMetadataButtonRenderer;
-@end
-
 //
 @interface _ASDisplayView : UIView
 @end
