@@ -46,7 +46,7 @@
 @interface SSOConfiguration : NSObject
 @end
 
-//
+// Hide "Buy Super Thanks" banner
 @interface _ASDisplayView : UIView
 @end
 
