@@ -59,10 +59,6 @@
 - (float)progress;
 @end
 
-@interface YTSegmentableInlinePlayerBarView
-@property (nonatomic, assign, readwrite) BOOL enableSnapToChapter;
-@end
-
 @interface YTPlaylistHeaderViewController: UIViewController
 @property UIButton *downloadsButton;
 @end
@@ -72,10 +68,6 @@
 - (id)slimMetadataButtonRenderer;
 @end
 
-// YTAutoFullScreen
-@interface YTPlayerViewController (YTAFS)
-- (void)autoFullscreen;
-@end
 //
 @interface _ASDisplayView : UIView
 @end
