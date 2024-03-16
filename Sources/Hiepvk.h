@@ -55,10 +55,6 @@
 @interface SSOConfiguration : NSObject
 @end
 
-@interface PlayerManager : NSObject
-- (float)progress;
-@end
-
 @interface YTISlimMetadataButtonSupportedRenderers : NSObject
 - (id)slimButton_buttonRenderer;
 - (id)slimMetadataButtonRenderer;
