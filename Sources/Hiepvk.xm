@@ -228,8 +228,8 @@ static NSString *accessGroupID() {
 
     // Change the default value of some options
     NSArray *allKeys = [[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys];
-    if (![allKeys containsObject:@"YouPiPEnabled"]) { 
-       [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"YouPiPEnabled"]; 
+    if (![allKeys containsObject:@"YTVideoOverlay-%@-Enabled"]) { 
+       [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"YTVideoOverlay-%@-Enabled"]; 
     }
     if (![allKeys containsObject:@"noAds_enabled"]) { 
        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"noAds_enabled"]; 
