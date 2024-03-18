@@ -41,6 +41,7 @@
 #define IS_ENABLED(k) [[NSUserDefaults standardUserDefaults] boolForKey:k]
 #define YT_BUNDLE_ID @"com.google.ios.youtube"
 #define YT_NAME @"YouTube"
+#define DEFAULT_RATE 1.0f // YTSpeed
 
 // YTSpeed
 @interface YTVarispeedSwitchControllerOption : NSObject
