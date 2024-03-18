@@ -243,9 +243,6 @@ static NSString *accessGroupID() {
 // ctor
 %ctor {
     %init;
-    if (IS_ENABLED(@"ytSpeed_enabled")) {
-        %init(gYTSpeed);
-    }
 
     // Change the default value of some options
     NSArray *allKeys = [[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys];
