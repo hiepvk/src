@@ -51,6 +51,7 @@
 
 
 @interface YTPlayerViewController : NSObject
+@property (nonatomic, assign, readonly)
 @property id activeVideo;
 @property float playbackRate;
 - (void)singleVideo:(id)video playbackRateDidChange:(float)rate;
