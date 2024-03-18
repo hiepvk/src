@@ -226,6 +226,10 @@ static NSString *accessGroupID() {
 %ctor {
     %init;
 
+    if (IsEnabled(@"ytSpeed_enabled")) {
+        %init(gYTSpeed);
+    }
+
     // Change the default value of some options
     NSArray *allKeys = [[[NSUserDefaults standardUserDefaults] dictionaryRepresentation] allKeys];
     if (![allKeys containsObject:@"YTVideoOverlay-YouQuality-Enabled"]) { 
