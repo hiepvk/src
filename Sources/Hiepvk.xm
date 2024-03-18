@@ -275,7 +275,7 @@ static NSString *accessGroupID() {
 %ctor {
     %init;
 
-    if (IsEnabled(@"ytSpeed_enabled")) {
+    if (IS_ENABLED(@"ytSpeed_enabled")) {
         %init(gYTSpeed);
     }
 
