@@ -26,9 +26,6 @@
 "HIDE_HOVER_CARD" = "Hide End screens hover cards (YTNoHoverCards)";
 "HIDE_HOVER_CARD_DESC" = "Hide the creator End screens (thumbnails) at the end of videos.";
 
-"YT_SPEED" = "Enable YTSpeed";
-"YT_SPEED_DESC" = "Enable YTSpeed to have more Playback Speed Options";
-
 // SHORTS
 "SHORTS" = "Shorts";
 
