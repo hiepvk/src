@@ -49,13 +49,6 @@
 @end
 
 
-@interface YTPlayerViewController : NSObject
-@property id activeVideo;
-@property float playbackRate;
-- (void)singleVideo:(id)video playbackRateDidChange:(float)rate;
-@end
-
-
 @interface MLHAMQueuePlayer : NSObject
 @property id playerEventCenter;
 @property id delegate;
