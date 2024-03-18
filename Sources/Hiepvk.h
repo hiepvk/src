@@ -48,31 +48,15 @@
 @interface YTVarispeedSwitchControllerOption : NSObject
 - (id)initWithTitle:(id)title rate:(float)rate;
 @end
-
-
 @interface MLHAMQueuePlayer : NSObject
 @property id playerEventCenter;
 @property id delegate;
 - (void)setRate:(float)rate;
 - (void)internalSetRate;
 @end
-
-
-@interface MLPlayerStickySettings : NSObject
-- (void)setRate:(float)rate;
-@end
-
-
 @interface MLPlayerEventCenter : NSObject
 - (void)broadcastRateChange:(float)rate;
 @end
-
-
-@interface YTSingleVideoController : NSObject
-- (void)playerRateDidChange:(float)rate;
-@end
-
-
 @interface HAMPlayerInternal : NSObject
 - (void)setRate:(float)rate;
 @end
