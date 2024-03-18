@@ -249,7 +249,8 @@ static NSString *accessGroupID() {
 
 %hook YTPlayerViewController
 
-%property (nonatomic, strong, float) playbackRate;
+%property (nonatomic, strong)
+float playbackRate;
 
 - (id)initWithServiceRegistryScope:(id)serviceRegistryScope parentResponder:(id)parentResponder overlayFactory:(id)overlayFactory {
 	float savedRate = [[NSUserDefaults standardUserDefaults] floatForKey:@"YoutubeSpeed_PlaybackRate"];
