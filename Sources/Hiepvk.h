@@ -50,22 +50,10 @@
 @end
 
 
-@interface YTPlayerViewController : UIViewController
-@property (nonatomic, assign, readonly) YTPlayerResponse *playerResponse;
-@property (nonatomic, assign, readonly) YTSingleVideoController *activeVideo;
-@property (nonatomic, weak, readwrite) UIViewController *activeVideoPlayerOverlay;
-@property (nonatomic, weak, readwrite) UIViewController *parentViewController;
-@property (nonatomic, weak, readwrite) UIViewController *UIDelegate;
-@property (nonatomic, readonly) NSString *contentVideoID;
-- (void)setActiveCaptionTrack:(id)track;
-- (void)setPlaybackRate:(CGFloat)rate;
-- (void)shortsToRegular;
-- (void)autoFullscreen;
-- (void)turnOffCaptions;
-- (void)setAutoSpeed;
-- (void)autoQuality;
-- (void)play;
-- (void)pause;
+@interface YTPlayerViewController : NSObject
+@property id activeVideo;
+@property float playbackRate;
+- (void)singleVideo:(id)video playbackRateDidChange:(float)rate;
 @end
 
 
