@@ -224,75 +224,53 @@ static NSString *accessGroupID() {
 
 // YT Speed Options
 %hook YTVarispeedSwitchController
+- (instancetype)init {
+	if ((self = %orig)) {
+        const int size = 17;
+        float speeds[] = {0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0, 5.0};
+        id varispeedSwitchControllerOptions[size];
 
-- (id)init {
-	id result = %orig;
+        for (int i = 0; i < size; ++i) {
+            id title = [NSString stringWithFormat:@"%.2fx", speeds[i]];
+            varispeedSwitchControllerOptions[i] = [[%c(YTVarispeedSwitchControllerOption) alloc] initWithTitle:title rate:speeds[i]];
+        }
 
-	const int size = 10;
-	float speeds[] = {0.5, 1.0, 1.25, 1.5, 1.75, 2.0, 2.5, 3.0, 3.5, 4.0};
-	id varispeedSwitchControllerOptions[size];
-
-	for (int i = 0; i < size; ++i) {
-		id title = [NSString stringWithFormat:@"%.2fx", speeds[i]];
-		varispeedSwitchControllerOptions[i] = [[%c(YTVarispeedSwitchControllerOption) alloc] initWithTitle:title rate:speeds[i]];
-	}
-
-	NSUInteger count = sizeof(varispeedSwitchControllerOptions) / sizeof(id);
-	NSArray *varispeedArray = [NSArray arrayWithObjects:varispeedSwitchControllerOptions count:count];
-	MSHookIvar<NSArray *>(self, "_options") = varispeedArray;
-
-	return result;
+        NSUInteger count = sizeof(varispeedSwitchControllerOptions) / sizeof(id);
+        NSArray *varispeedArray = [NSArray arrayWithObjects:varispeedSwitchControllerOptions count:count];
+        MSHookIvar<NSArray *>(self, "_options") = varispeedArray;
+    }
+	return self;
 }
-
 %end
 
-
-%hook YTPlayerViewController
-
-%property float playbackRate;
-
-- (id)initWithServiceRegistryScope:(id)serviceRegistryScope parentResponder:(id)parentResponder overlayFactory:(id)overlayFactory {
-	float savedRate = [[NSUserDefaults standardUserDefaults] floatForKey:@"YoutubeSpeed_PlaybackRate"];
-	self.playbackRate = savedRate == 0 ? DEFAULT_RATE : savedRate;
-	return %orig;
+%hook YTLocalPlaybackController
+- (instancetype)initWithParentResponder:(id)parentResponder overlayFactory:(id)overlayFactory playerView:(id)playerView playbackControllerDelegate:(id)playbackControllerDelegate viewportSizeProvider:(id)viewportSizeProvider shouldDelayAdsPlaybackCoordinatorCreation:(BOOL)shouldDelayAdsPlaybackCoordinatorCreation {
+    float savedRate = [[NSUserDefaults standardUserDefaults] floatForKey:@"YoutubeSpeed_PlaybackRate"];
+    if ((self = %orig)) {
+        MSHookIvar<float>(self, "_restoredPlaybackRate") = savedRate == 0 ? DEFAULT_RATE : savedRate;
+    }
+    return self;
 }
-
-- (void)singleVideo:(id)video playbackRateDidChange:(float)rate {
-	%orig;
-}
-
-- (float)currentPlaybackRateForVarispeedSwitchController:(id)varispeedSwitchController {
-	return self.playbackRate;
-}
-
-- (void)varispeedSwitchController:(id)varispeedSwitchController didSelectRate:(float)rate {
-	self.playbackRate = rate;
+- (void)setPlaybackRate:(float)rate {
+    %orig;
 	[[NSUserDefaults standardUserDefaults] setFloat: rate forKey:@"YoutubeSpeed_PlaybackRate"];
-	if (rate > 2.0f) {
-		[self singleVideo:self.activeVideo playbackRateDidChange: rate];
-	}
-	%orig;
 }
-
 %end
-
 
 %hook MLHAMQueuePlayer
-
-- (id)initWithStickySettings:(id)stickySettings playerViewProvider:(id)playerViewProvider {
+- (instancetype)initWithStickySettings:(id)stickySettings playerViewProvider:(id)playerViewProvider {
 	id result = %orig;
 	float savedRate = [[NSUserDefaults standardUserDefaults] floatForKey:@"YoutubeSpeed_PlaybackRate"];
 	[self setRate: savedRate == 0 ? DEFAULT_RATE : savedRate];
 	return result;
 }
-
 - (void)setRate:(float)rate {
-	MSHookIvar<float>(self, "_rate") = rate;
+    MSHookIvar<float>(self, "_rate") = rate;
 	MSHookIvar<float>(self, "_preferredRate") = rate;
 
 	id player = MSHookIvar<HAMPlayerInternal *>(self, "_player");
 	[player setRate: rate];
-	
+
 	id stickySettings = MSHookIvar<MLPlayerStickySettings *>(self, "_stickySettings");
 	[stickySettings setRate: rate];
 
@@ -301,7 +279,6 @@ static NSString *accessGroupID() {
 	YTSingleVideoController *singleVideoController = self.delegate;
 	[singleVideoController playerRateDidChange: rate];
 }
-
 %end
 
 // ctor
