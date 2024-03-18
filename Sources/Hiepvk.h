@@ -42,6 +42,15 @@
 #define YT_BUNDLE_ID @"com.google.ios.youtube"
 #define YT_NAME @"YouTube"
 
+// YT Speed
+@interface YTVarispeedSwitchControllerOption : NSObject
+- (id)initWithTitle:(NSString *)title rate:(float)rate;
+@end
+
+@interface YTVarispeedSwitchController : NSObject
+- (void)addActionForOption:(YTVarispeedSwitchControllerOption *)option;
+@end
+
 // IAmYouTube
 @interface SSOConfiguration : NSObject
 @end
