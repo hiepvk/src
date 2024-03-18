@@ -225,34 +225,53 @@ static NSString *accessGroupID() {
 // YTSpeed - https://github.com/Lyvendia/YTSpeed
 %group gYTSpeed
 %hook YTVarispeedSwitchController
-- (id)init {
-	id result = %orig;
-
-	const int size = 17;
+- (instancetype)init {
+	if ((self = %orig)) {
+        const int size = 17;
         float speeds[] = {0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0, 2.25, 2.5, 2.75, 3.0, 3.25, 3.5, 3.75, 4.0, 5.0};
         id varispeedSwitchControllerOptions[size];
 
-	for (int i = 0; i < size; ++i) {
-		id title = [NSString stringWithFormat:@"%.2fx", speeds[i]];
-		varispeedSwitchControllerOptions[i] = [[%c(YTVarispeedSwitchControllerOption) alloc] initWithTitle:title rate:speeds[i]];
-	}
+        for (int i = 0; i < size; ++i) {
+            id title = [NSString stringWithFormat:@"%.2fx", speeds[i]];
+            varispeedSwitchControllerOptions[i] = [[%c(YTVarispeedSwitchControllerOption) alloc] initWithTitle:title rate:speeds[i]];
+        }
 
-	NSUInteger count = sizeof(varispeedSwitchControllerOptions) / sizeof(id);
-	NSArray *varispeedArray = [NSArray arrayWithObjects:varispeedSwitchControllerOptions count:count];
-	MSHookIvar<NSArray *>(self, "_options") = varispeedArray;
+        NSUInteger count = sizeof(varispeedSwitchControllerOptions) / sizeof(id);
+        NSArray *varispeedArray = [NSArray arrayWithObjects:varispeedSwitchControllerOptions count:count];
+        MSHookIvar<NSArray *>(self, "_options") = varispeedArray;
+    }
+	return self;
+}
+%end
 
-	return result;
+%hook YTLocalPlaybackController
+- (instancetype)initWithParentResponder:(id)parentResponder overlayFactory:(id)overlayFactory playerView:(id)playerView playbackControllerDelegate:(id)playbackControllerDelegate viewportSizeProvider:(id)viewportSizeProvider shouldDelayAdsPlaybackCoordinatorCreation:(BOOL)shouldDelayAdsPlaybackCoordinatorCreation {
+    float savedRate = [[NSUserDefaults standardUserDefaults] floatForKey:@"YoutubeSpeed_PlaybackRate"];
+    if ((self = %orig)) {
+        MSHookIvar<float>(self, "_restoredPlaybackRate") = savedRate == 0 ? DEFAULT_RATE : savedRate;
+    }
+    return self;
+}
+- (void)setPlaybackRate:(float)rate {
+    %orig;
+	[[NSUserDefaults standardUserDefaults] setFloat: rate forKey:@"YoutubeSpeed_PlaybackRate"];
 }
 %end
 
 %hook MLHAMQueuePlayer
+- (instancetype)initWithStickySettings:(id)stickySettings playerViewProvider:(id)playerViewProvider {
+	id result = %orig;
+	float savedRate = [[NSUserDefaults standardUserDefaults] floatForKey:@"YoutubeSpeed_PlaybackRate"];
+	[self setRate: savedRate == 0 ? DEFAULT_RATE : savedRate];
+	return result;
+}
 - (void)setRate:(float)rate {
-	MSHookIvar<float>(self, "_rate") = rate;
+    MSHookIvar<float>(self, "_rate") = rate;
 	MSHookIvar<float>(self, "_preferredRate") = rate;
 
 	id player = MSHookIvar<HAMPlayerInternal *>(self, "_player");
 	[player setRate: rate];
-	
+
 	id stickySettings = MSHookIvar<MLPlayerStickySettings *>(self, "_stickySettings");
 	[stickySettings setRate: rate];
 
@@ -260,13 +279,6 @@ static NSString *accessGroupID() {
 
 	YTSingleVideoController *singleVideoController = self.delegate;
 	[singleVideoController playerRateDidChange: rate];
-}
-%end
-
-%hook YTPlayerViewController
-%property (nonatomic, assign) float playbackRate;
-- (void)singleVideo:(id)video playbackRateDidChange:(float)rate {
-	%orig;
 }
 %end
 %end
