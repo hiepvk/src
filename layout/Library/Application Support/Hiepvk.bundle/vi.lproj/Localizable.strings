@@ -26,8 +26,8 @@
 "HIDE_HOVER_CARD" = "Ẩn video dạng thumbnails (YTNoHoverCards)";
 "HIDE_HOVER_CARD_DESC" = "Ẩn thumbnail của các video đề xuất xuất hiện ở cuối video.";
 
-"YT_SPEED" = "Enable YTSpeed";
-"YT_SPEED_DESC" = "Enable YTSpeed to have more Playback Speed Options";
+"YT_SPEED" = "Bật YTSpeed";
+"YT_SPEED_DESC" = "Bật YTSpeed ​​để có thêm tùy chọn tốc độ phát";
 
 // SHORTS
 "SHORTS" = "Shorts";
