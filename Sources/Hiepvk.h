@@ -63,6 +63,11 @@
 - (void)setRate:(float)rate;
 @end
 
+@interface YTLocalPlaybackController : NSObject
+- (void)setPlaybackRate:(float)rate;
+- (id)activeVideo;
+@end
+
 // IAmYouTube
 @interface SSOConfiguration : NSObject
 @end
