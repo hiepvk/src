@@ -43,11 +43,10 @@
 #define YT_NAME @"YouTube"
 #define DEFAULT_RATE 2.0f
 
-// YT Speed
+// YTSpeed
 @interface YTVarispeedSwitchControllerOption : NSObject
 - (id)initWithTitle:(id)title rate:(float)rate;
 @end
-
 
 @interface MLHAMQueuePlayer : NSObject
 @property id playerEventCenter;
@@ -56,24 +55,17 @@
 - (void)internalSetRate;
 @end
 
-
-@interface MLPlayerStickySettings : NSObject
-- (void)setRate:(float)rate;
-@end
-
-
 @interface MLPlayerEventCenter : NSObject
 - (void)broadcastRateChange:(float)rate;
 @end
 
-
-@interface YTSingleVideoController : NSObject
-- (void)playerRateDidChange:(float)rate;
-@end
-
-
 @interface HAMPlayerInternal : NSObject
 - (void)setRate:(float)rate;
+@end
+
+@interface YTLocalPlaybackController : NSObject
+- (void)setPlaybackRate:(float)rate;
+- (id)activeVideo;
 @end
 
 
