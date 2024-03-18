@@ -41,33 +41,6 @@
 #define IS_ENABLED(k) [[NSUserDefaults standardUserDefaults] boolForKey:k]
 #define YT_BUNDLE_ID @"com.google.ios.youtube"
 #define YT_NAME @"YouTube"
-#define DEFAULT_RATE 2.0f
-
-// YTSpeed
-@interface YTVarispeedSwitchControllerOption : NSObject
-- (id)initWithTitle:(id)title rate:(float)rate;
-@end
-
-@interface MLHAMQueuePlayer : NSObject
-@property id playerEventCenter;
-@property id delegate;
-- (void)setRate:(float)rate;
-- (void)internalSetRate;
-@end
-
-@interface MLPlayerEventCenter : NSObject
-- (void)broadcastRateChange:(float)rate;
-@end
-
-@interface HAMPlayerInternal : NSObject
-- (void)setRate:(float)rate;
-@end
-
-@interface YTLocalPlaybackController : NSObject
-- (void)setPlaybackRate:(float)rate;
-- (id)activeVideo;
-@end
-
 
 // IAmYouTube
 @interface SSOConfiguration : NSObject
