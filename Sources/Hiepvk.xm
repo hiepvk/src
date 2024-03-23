@@ -245,4 +245,7 @@ static NSString *accessGroupID() {
     if (![allKeys containsObject:@"hideHoverCards_enabled"]) { 
        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"hideHoverCards_enabled"]; 
     }
+    if (![allKeys containsObject:@"YouPiPEnabled"]) { 
+       [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"YouPiPEnabled"]; 
+    }
 }
