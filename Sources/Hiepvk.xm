@@ -222,13 +222,6 @@ static NSString *accessGroupID() {
 }
 %end
 
-// A/B flags
-%hook YTColdConfig 
-// YouRememberCaption: https://poomsmart.github.io/repo/depictions/youremembercaption.html
-- (BOOL)respectDeviceCaptionSetting { return NO; }
-// Swipe right to dismiss the right panel in fullscreen mode
-- (BOOL)isLandscapeEngagementPanelSwipeRightToDismissEnabled { return YES; }
-%end
 
 // ctor
 %ctor {
