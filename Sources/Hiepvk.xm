@@ -222,6 +222,10 @@ static NSString *accessGroupID() {
 }
 %end
 
+// A/B flags
+%hook YTColdConfig 
+// YouRememberCaption: https://poomsmart.github.io/repo/depictions/youremembercaption.html
+- (BOOL)respectDeviceCaptionSetting { return NO; }
 
 // ctor
 %ctor {
